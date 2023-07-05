@@ -4,10 +4,10 @@ import { createPortal } from "react-dom";
 /**
  *
  * @param {{
- * width: 'md' | 'full,
- * classname: string,
- * isOpen: boolean,
- * onClose: function
+ * className: string,
+ * width: 'md' | 'full',
+ * isOpen: boolean
+ * onClose: Function
  * }} props
  * @returns
  */
@@ -29,33 +29,44 @@ export function UiModal({
     return null;
   }
 
-  const modal = (
-    <div
-      onClick={handleClick}
-      className={clsx(
-        "fixed inset-0 bg-slate-900/60 backdrop-blur py-10 overflow-y-auto",
-        className
-      )}
-    >
+  if (typeof window !== "undefined") {
+    const modal = (
       <div
-        data-id="modal"
+        onClick={handleClick}
         className={clsx(
-          "bg-white rounded-lg min-h-[320px] mx-auto relative flex flex-col",
-          { md: "max-w-[640px] w-full", full: "mx-5" }[width]
+          "fixed inset-0 bg-slate-900/60 backdrop-blur pt-10 pb-10 overflow-y-auto",
+          className
         )}
       >
-        <button
-          onClick={onClose}
-          className="w-8 h-8 rounded flex items-center justify-center hover:bg-white/40 bg-white/10 transition-color absolute top-0 left-[calc(100%+12px)]"
+        <div
+          data-id="modal"
+          className={clsx(
+            "bg-white rounded-lg min-h-[320px] mx-auto relative",
+            "flex flex-col ",
+            {
+              md: "max-w-[640px] w-full",
+              full: "mx-5",
+            }[width]
+          )}
         >
-          <CrossLightIcon className="w-4 h-4 text-white" />
-        </button>
-        {children}
+          <button
+            onClick={onClose}
+            className="
+              w-8 h-8 rounded  flex items-center justify-center 
+              hover:bg-white/40 bg-white/10 transition-colors
+              absolute top-0 left-[calc(100%+12px)]"
+          >
+            <CrossLightIcon className="w-4 h-4 text-white" />
+          </button>
+          {children}
+        </div>
       </div>
-    </div>
-  );
+    );
 
-  return createPortal(modal, document.getElementById("modals"));
+    return createPortal(modal, document.getElementById("modals"));
+  } else {
+    return null;
+  }
 }
 
 UiModal.Header = function UiModalHeader({ children, className }) {
