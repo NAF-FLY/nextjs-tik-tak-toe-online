@@ -1,6 +1,6 @@
-import { HistoryIcon } from "./icons/history-icon";
 import { StarIcon } from "./icons/star-icon";
 import { UserIcon } from "./icons/user-icon";
+import { HistoryIcon } from "./icons/histry-icon";
 
 export function GameInfo({ playersCount, isRatingGame, timeMode }) {
   return (
@@ -10,8 +10,7 @@ export function GameInfo({ playersCount, isRatingGame, timeMode }) {
         <UserIcon /> {playersCount}
       </div>
       <div className="flex items-center gap-1">
-        <HistoryIcon />
-        {timeMode}
+        <HistoryIcon /> {timeMode}
       </div>
     </div>
   );

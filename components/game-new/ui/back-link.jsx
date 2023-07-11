@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowLeftIcon } from "./icons/arrow-left";
+import { ArrowLeftIcon } from "./icons/arrow-left-icon";
 
 export function BackLink() {
   return (
